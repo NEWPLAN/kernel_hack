@@ -1,3 +1,9 @@
+/******************************************************************************************************************
+**ref: https://stackoverflow.com/questions/44150093/nfhook-netfilter-error-assignment-from-incompatible-pointer-type
+https://www.cnblogs.com/virusolf/p/5297573.html
+https://blog.csdn.net/stone8761/article/details/72821733
+****************************************************************/
+
 #include <linux/init.h>
 #include <linux/module.h>
 #include <linux/netfilter.h>
@@ -14,12 +20,18 @@ IP2Str(char *ipaddr, int size, uint32_t ip)
                                         , ( ip >> 8 ) & 0xff
                                         , ip & 0xff);
 }
+
  
 unsigned int
 my_hook_fun(void *priv, struct sk_buff *skb, const struct nf_hook_state *state)
 {
+        
+
         struct iphdr *iph;
         char ipaddr[17];
+
+        //******************new added*************************
+        printk(KERN_INFO "Packet Direction: %s-->%s\n", state->in->name, state->out==NULL?"null":state->out->name);
  
         if( unlikely(!skb) ) {
                 return NF_ACCEPT;
