@@ -11,7 +11,7 @@
 #define USER_PORT        100
 
 MODULE_LICENSE("GPL");
-MODULE_AUTHOR("zhangwj");
+MODULE_AUTHOR("NEWPLAN");
 MODULE_DESCRIPTION("netlink example");
 
 struct sock *nlsk = NULL;

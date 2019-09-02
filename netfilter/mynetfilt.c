@@ -5,6 +5,8 @@ https://blog.csdn.net/stone8761/article/details/72821733
 https://medium.com/@GoldenOak/linux-kernel-communication-part-1-netfilter-hooks-15c07a5a5c4e
 https://onestraw.github.io/linux/netfilter-hook/
 http://bbs.chinaunix.net/forum.php?mod=viewthread&action=printable&tid=4090493
+http://www.voidcn.com/article/p-sunprqrr-ut.html
+https://www.linuxquestions.org/questions/linux-general-1/a-question-about-kernel-options-11550/
 ****************************************************************/
 
 #include <linux/init.h>
@@ -49,9 +51,10 @@ my_hook_fun(void *priv, struct sk_buff *skb, const struct nf_hook_state *state)
                 return NF_ACCEPT;
         }
  
+        /*
         if( likely(iph->protocol != IPPROTO_ICMP) ) {
                 return NF_ACCEPT;
-        }
+        }*/
         {
                 memset(ipaddrdest, 0, sizeof(ipaddrdest));
                 IP2Str(ipaddrdest,sizeof(ipaddrdest),ntohl(iph->daddr));
@@ -72,7 +75,7 @@ my_hook_fun(void *priv, struct sk_buff *skb, const struct nf_hook_state *state)
         if(state->out!=NULL)
         {
                 //list = prio2list(skb, state->out->qdisc);
-                printk(KERN_DEBUG "debug for state->out\n");
+                printk(KERN_DEBUG "sending to device: %s, %u Byte(s)\n",state->out->name,iph->tot_len);
                 printk(KERN_DEBUG "Out Queue: name=%s queueing size=%u, queueing limit=%u\n", state->out->name, queuesize(state->out),queuelength(state->out));
         }
  
