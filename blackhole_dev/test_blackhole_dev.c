@@ -7,6 +7,7 @@
  * (in other words, *not crash*)!
  *
  * Copyright (c) 2018, Mahesh Bandewar <maheshb@google.com>
+ * https://github.com/yyu168/linux_cet/blob/fec88ab0af9706b2201e5daf377c5031c62d11f7/lib/test_blackhole_dev.c
  */
 
 #include <linux/init.h>
